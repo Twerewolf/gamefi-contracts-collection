@@ -1,0 +1,1 @@
+curl https://bscscan.com/address/0xbe363cCa482e0e5e3865302cEab098D2e6BDCf51#code > code1.txt

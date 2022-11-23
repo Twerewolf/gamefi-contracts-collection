@@ -1,0 +1,1093 @@
+pragma solidity 0.6.12;\r
+\r
+\r
+// \r
+/*\r
+ * @dev Provides information about the current execution context, including the\r
+ * sender of the transaction and its data. While these are generally available\r
+ * via msg.sender and msg.data, they should not be accessed in such a direct\r
+ * manner, since when dealing with GSN meta-transactions the account sending and\r
+ * paying for execution may not be the actual sender (as far as an application\r
+ * is concerned).\r
+ *\r
+ * This contract is only required for intermediate, library-like contracts.\r
+ */\r
+contract Context {\r
+    // Empty internal constructor, to prevent people from mistakenly deploying\r
+    // an instance of this contract, which should be used via inheritance.\r
+    constructor() internal {}\r
+\r
+    function _msgSender() internal view returns (address payable) {\r
+        return msg.sender;\r
+    }\r
+\r
+    function _msgData() internal view returns (bytes memory) {\r
+        this; // silence state mutability warning without generating bytecode - see https://github.com/ethereum/solidity/issues/2691\r
+        return msg.data;\r
+    }\r
+}\r
+\r
+// \r
+/**\r
+ * @dev Contract module which provides a basic access control mechanism, where\r
+ * there is an account (an owner) that can be granted exclusive access to\r
+ * specific functions.\r
+ *\r
+ * By default, the owner account will be the one that deploys the contract. This\r
+ * can later be changed with {transferOwnership}.\r
+ *\r
+ * This module is used through inheritance. It will make available the modifier\r
+ * `onlyOwner`, which can be applied to your functions to restrict their use to\r
+ * the owner.\r
+ */\r
+contract Ownable is Context {\r
+    address private _owner;\r
+\r
+    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\r
+\r
+    /**\r
+     * @dev Initializes the contract setting the deployer as the initial owner.\r
+     */\r
+    constructor() internal {\r
+        address msgSender = _msgSender();\r
+        _owner = msgSender;\r
+        emit OwnershipTransferred(address(0), msgSender);\r
+    }\r
+\r
+    /**\r
+     * @dev Returns the address of the current owner.\r
+     */\r
+    function owner() public view returns (address) {\r
+        return _owner;\r
+    }\r
+\r
+    /**\r
+     * @dev Throws if called by any account other than the owner.\r
+     */\r
+    modifier onlyOwner() {\r
+        require(_owner == _msgSender(), 'Ownable: caller is not the owner');\r
+        _;\r
+    }\r
+\r
+    /**\r
+     * @dev Leaves the contract without owner. It will not be possible to call\r
+     * `onlyOwner` functions anymore. Can only be called by the current owner.\r
+     *\r
+     * NOTE: Renouncing ownership will leave the contract without an owner,\r
+     * thereby removing any functionality that is only available to the owner.\r
+     */\r
+    function renounceOwnership() public onlyOwner {\r
+        emit OwnershipTransferred(_owner, address(0));\r
+        _owner = address(0);\r
+    }\r
+\r
+    /**\r
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).\r
+     * Can only be called by the current owner.\r
+     */\r
+    function transferOwnership(address newOwner) public onlyOwner {\r
+        _transferOwnership(newOwner);\r
+    }\r
+\r
+    /**\r
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).\r
+     */\r
+    function _transferOwnership(address newOwner) internal {\r
+        require(newOwner != address(0), 'Ownable: new owner is the zero address');\r
+        emit OwnershipTransferred(_owner, newOwner);\r
+        _owner = newOwner;\r
+    }\r
+}\r
+\r
+// \r
+interface IBEP20 {\r
+    /**\r
+     * @dev Returns the amount of tokens in existence.\r
+     */\r
+    function totalSupply() external view returns (uint256);\r
+\r
+    /**\r
+     * @dev Returns the token decimals.\r
+     */\r
+    function decimals() external view returns (uint8);\r
+\r
+    /**\r
+     * @dev Returns the token symbol.\r
+     */\r
+    function symbol() external view returns (string memory);\r
+\r
+    /**\r
+     * @dev Returns the token name.\r
+     */\r
+    function name() external view returns (string memory);\r
+\r
+    /**\r
+     * @dev Returns the bep token owner.\r
+     */\r
+    function getOwner() external view returns (address);\r
+\r
+    /**\r
+     * @dev Returns the amount of tokens owned by `account`.\r
+     */\r
+    function balanceOf(address account) external view returns (uint256);\r
+\r
+    /**\r
+     * @dev Moves `amount` tokens from the caller's account to `recipient`.\r
+     *\r
+     * Returns a boolean value indicating whether the operation succeeded.\r
+     *\r
+     * Emits a {Transfer} event.\r
+     */\r
+    function transfer(address recipient, uint256 amount) external returns (bool);\r
+\r
+    /**\r
+     * @dev Returns the remaining number of tokens that `spender` will be\r
+     * allowed to spend on behalf of `owner` through {transferFrom}. This is\r
+     * zero by default.\r
+     *\r
+     * This value changes when {approve} or {transferFrom} are called.\r
+     */\r
+    function allowance(address _owner, address spender) external view returns (uint256);\r
+\r
+    /**\r
+     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.\r
+     *\r
+     * Returns a boolean value indicating whether the operation succeeded.\r
+     *\r
+     * IMPORTANT: Beware that changing an allowance with this method brings the risk\r
+     * that someone may use both the old and the new allowance by unfortunate\r
+     * transaction ordering. One possible solution to mitigate this race\r
+     * condition is to first reduce the spender's allowance to 0 and set the\r
+     * desired value afterwards:\r
+     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\r
+     *\r
+     * Emits an {Approval} event.\r
+     */\r
+    function approve(address spender, uint256 amount) external returns (bool);\r
+\r
+    /**\r
+     * @dev Moves `amount` tokens from `sender` to `recipient` using the\r
+     * allowance mechanism. `amount` is then deducted from the caller's\r
+     * allowance.\r
+     *\r
+     * Returns a boolean value indicating whether the operation succeeded.\r
+     *\r
+     * Emits a {Transfer} event.\r
+     */\r
+    function transferFrom(\r
+        address sender,\r
+        address recipient,\r
+        uint256 amount\r
+    ) external returns (bool);\r
+\r
+    /**\r
+     * @dev Emitted when `value` tokens are moved from one account (`from`) to\r
+     * another (`to`).\r
+     *\r
+     * Note that `value` may be zero.\r
+     */\r
+    event Transfer(address indexed from, address indexed to, uint256 value);\r
+\r
+    /**\r
+     * @dev Emitted when the allowance of a `spender` for an `owner` is set by\r
+     * a call to {approve}. `value` is the new allowance.\r
+     */\r
+    event Approval(address indexed owner, address indexed spender, uint256 value);\r
+}\r
+\r
+// \r
+/**\r
+ * @dev Wrappers over Solidity's arithmetic operations with added overflow\r
+ * checks.\r
+ *\r
+ * Arithmetic operations in Solidity wrap on overflow. This can easily result\r
+ * in bugs, because programmers usually assume that an overflow raises an\r
+ * error, which is the standard behavior in high level programming languages.\r
+ * `SafeMath` restores this intuition by reverting the transaction when an\r
+ * operation overflows.\r
+ *\r
+ * Using this library instead of the unchecked operations eliminates an entire\r
+ * class of bugs, so it's recommended to use it always.\r
+ */\r
+library SafeMath {\r
+    /**\r
+     * @dev Returns the addition of two unsigned integers, reverting on\r
+     * overflow.\r
+     *\r
+     * Counterpart to Solidity's `+` operator.\r
+     *\r
+     * Requirements:\r
+     *\r
+     * - Addition cannot overflow.\r
+     */\r
+    function add(uint256 a, uint256 b) internal pure returns (uint256) {\r
+        uint256 c = a + b;\r
+        require(c >= a, 'SafeMath: addition overflow');\r
+\r
+        return c;\r
+    }\r
+\r
+    /**\r
+     * @dev Returns the subtraction of two unsigned integers, reverting on\r
+     * overflow (when the result is negative).\r
+     *\r
+     * Counterpart to Solidity's `-` operator.\r
+     *\r
+     * Requirements:\r
+     *\r
+     * - Subtraction cannot overflow.\r
+     */\r
+    function sub(uint256 a, uint256 b) internal pure returns (uint256) {\r
+        return sub(a, b, 'SafeMath: subtraction overflow');\r
+    }\r
+\r
+    /**\r
+     * @dev Returns the subtraction of two unsigned integers, reverting with custom message on\r
+     * overflow (when the result is negative).\r
+     *\r
+     * Counterpart to Solidity's `-` operator.\r
+     *\r
+     * Requirements:\r
+     *\r
+     * - Subtraction cannot overflow.\r
+     */\r
+    function sub(\r
+        uint256 a,\r
+        uint256 b,\r
+        string memory errorMessage\r
+    ) internal pure returns (uint256) {\r
+        require(b <= a, errorMessage);\r
+        uint256 c = a - b;\r
+\r
+        return c;\r
+    }\r
+\r
+    /**\r
+     * @dev Returns the multiplication of two unsigned integers, reverting on\r
+     * overflow.\r
+     *\r
+     * Counterpart to Solidity's `*` operator.\r
+     *\r
+     * Requirements:\r
+     *\r
+     * - Multiplication cannot overflow.\r
+     */\r
+    function mul(uint256 a, uint256 b) internal pure returns (uint256) {\r
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the\r
+        // benefit is lost if 'b' is also tested.\r
+        // See: https://github.com/OpenZeppelin/openzeppelin-contracts/pull/522\r
+        if (a == 0) {\r
+            return 0;\r
+        }\r
+\r
+        uint256 c = a * b;\r
+        require(c / a == b, 'SafeMath: multiplication overflow');\r
+\r
+        return c;\r
+    }\r
+\r
+    /**\r
+     * @dev Returns the integer division of two unsigned integers. Reverts on\r
+     * division by zero. The result is rounded towards zero.\r
+     *\r
+     * Counterpart to Solidity's `/` operator. Note: this function uses a\r
+     * `revert` opcode (which leaves remaining gas untouched) while Solidity\r
+     * uses an invalid opcode to revert (consuming all remaining gas).\r
+     *\r
+     * Requirements:\r
+     *\r
+     * - The divisor cannot be zero.\r
+     */\r
+    function div(uint256 a, uint256 b) internal pure returns (uint256) {\r
+        return div(a, b, 'SafeMath: division by zero');\r
+    }\r
+\r
+    /**\r
+     * @dev Returns the integer division of two unsigned integers. Reverts with custom message on\r
+     * division by zero. The result is rounded towards zero.\r
+     *\r
+     * Counterpart to Solidity's `/` operator. Note: this function uses a\r
+     * `revert` opcode (which leaves remaining gas untouched) while Solidity\r
+     * uses an invalid opcode to revert (consuming all remaining gas).\r
+     *\r
+     * Requirements:\r
+     *\r
+     * - The divisor cannot be zero.\r
+     */\r
+    function div(\r
+        uint256 a,\r
+        uint256 b,\r
+        string memory errorMessage\r
+    ) internal pure returns (uint256) {\r
+        require(b > 0, errorMessage);\r
+        uint256 c = a / b;\r
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold\r
+\r
+        return c;\r
+    }\r
+\r
+    /**\r
+     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\r
+     * Reverts when dividing by zero.\r
+     *\r
+     * Counterpart to Solidity's `%` operator. This function uses a `revert`\r
+     * opcode (which leaves remaining gas untouched) while Solidity uses an\r
+     * invalid opcode to revert (consuming all remaining gas).\r
+     *\r
+     * Requirements:\r
+     *\r
+     * - The divisor cannot be zero.\r
+     */\r
+    function mod(uint256 a, uint256 b) internal pure returns (uint256) {\r
+        return mod(a, b, 'SafeMath: modulo by zero');\r
+    }\r
+\r
+    /**\r
+     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\r
+     * Reverts with custom message when dividing by zero.\r
+     *\r
+     * Counterpart to Solidity's `%` operator. This function uses a `revert`\r
+     * opcode (which leaves remaining gas untouched) while Solidity uses an\r
+     * invalid opcode to revert (consuming all remaining gas).\r
+     *\r
+     * Requirements:\r
+     *\r
+     * - The divisor cannot be zero.\r
+     */\r
+    function mod(\r
+        uint256 a,\r
+        uint256 b,\r
+        string memory errorMessage\r
+    ) internal pure returns (uint256) {\r
+        require(b != 0, errorMessage);\r
+        return a % b;\r
+    }\r
+\r
+    function min(uint256 x, uint256 y) internal pure returns (uint256 z) {\r
+        z = x < y ? x : y;\r
+    }\r
+\r
+    // babylonian method (https://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Babylonian_method)\r
+    function sqrt(uint256 y) internal pure returns (uint256 z) {\r
+        if (y > 3) {\r
+            z = y;\r
+            uint256 x = y / 2 + 1;\r
+            while (x < z) {\r
+                z = x;\r
+                x = (y / x + x) / 2;\r
+            }\r
+        } else if (y != 0) {\r
+            z = 1;\r
+        }\r
+    }\r
+}\r
+\r
+// \r
+/**\r
+ * @dev Collection of functions related to the address type\r
+ */\r
+library Address {\r
+    /**\r
+     * @dev Returns true if `account` is a contract.\r
+     *\r
+     * [IMPORTANT]\r
+     * ====\r
+     * It is unsafe to assume that an address for which this function returns\r
+     * false is an externally-owned account (EOA) and not a contract.\r
+     *\r
+     * Among others, `isContract` will return false for the following\r
+     * types of addresses:\r
+     *\r
+     *  - an externally-owned account\r
+     *  - a contract in construction\r
+     *  - an address where a contract will be created\r
+     *  - an address where a contract lived, but was destroyed\r
+     * ====\r
+     */\r
+    function isContract(address account) internal view returns (bool) {\r
+        // According to EIP-1052, 0x0 is the value returned for not-yet created accounts\r
+        // and 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470 is returned\r
+        // for accounts without code, i.e. `keccak256('')`\r
+        bytes32 codehash;\r
+        bytes32 accountHash = 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470;\r
+        // solhint-disable-next-line no-inline-assembly\r
+        assembly {\r
+            codehash := extcodehash(account)\r
+        }\r
+        return (codehash != accountHash && codehash != 0x0);\r
+    }\r
+\r
+    /**\r
+     * @dev Replacement for Solidity's `transfer`: sends `amount` wei to\r
+     * `recipient`, forwarding all available gas and reverting on errors.\r
+     *\r
+     * https://eips.ethereum.org/EIPS/eip-1884[EIP1884] increases the gas cost\r
+     * of certain opcodes, possibly making contracts go over the 2300 gas limit\r
+     * imposed by `transfer`, making them unable to receive funds via\r
+     * `transfer`. {sendValue} removes this limitation.\r
+     *\r
+     * https://diligence.consensys.net/posts/2019/09/stop-using-soliditys-transfer-now/[Learn more].\r
+     *\r
+     * IMPORTANT: because control is transferred to `recipient`, care must be\r
+     * taken to not create reentrancy vulnerabilities. Consider using\r
+     * {ReentrancyGuard} or the\r
+     * https://solidity.readthedocs.io/en/v0.5.11/security-considerations.html#use-the-checks-effects-interactions-pattern[checks-effects-interactions pattern].\r
+     */\r
+    function sendValue(address payable recipient, uint256 amount) internal {\r
+        require(address(this).balance >= amount, 'Address: insufficient balance');\r
+\r
+        // solhint-disable-next-line avoid-low-level-calls, avoid-call-value\r
+        (bool success, ) = recipient.call{value: amount}('');\r
+        require(success, 'Address: unable to send value, recipient may have reverted');\r
+    }\r
+\r
+    /**\r
+     * @dev Performs a Solidity function call using a low level `call`. A\r
+     * plain`call` is an unsafe replacement for a function call: use this\r
+     * function instead.\r
+     *\r
+     * If `target` reverts with a revert reason, it is bubbled up by this\r
+     * function (like regular Solidity function calls).\r
+     *\r
+     * Returns the raw returned data. To convert to the expected return value,\r
+     * use https://solidity.readthedocs.io/en/latest/units-and-global-variables.html?highlight=abi.decode#abi-encoding-and-decoding-functions[`abi.decode`].\r
+     *\r
+     * Requirements:\r
+     *\r
+     * - `target` must be a contract.\r
+     * - calling `target` with `data` must not revert.\r
+     *\r
+     * _Available since v3.1._\r
+     */\r
+    function functionCall(address target, bytes memory data) internal returns (bytes memory) {\r
+        return functionCall(target, data, 'Address: low-level call failed');\r
+    }\r
+\r
+    /**\r
+     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`], but with\r
+     * `errorMessage` as a fallback revert reason when `target` reverts.\r
+     *\r
+     * _Available since v3.1._\r
+     */\r
+    function functionCall(\r
+        address target,\r
+        bytes memory data,\r
+        string memory errorMessage\r
+    ) internal returns (bytes memory) {\r
+        return _functionCallWithValue(target, data, 0, errorMessage);\r
+    }\r
+\r
+    /**\r
+     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],\r
+     * but also transferring `value` wei to `target`.\r
+     *\r
+     * Requirements:\r
+     *\r
+     * - the calling contract must have an ETH balance of at least `value`.\r
+     * - the called Solidity function must be `payable`.\r
+     *\r
+     * _Available since v3.1._\r
+     */\r
+    function functionCallWithValue(\r
+        address target,\r
+        bytes memory data,\r
+        uint256 value\r
+    ) internal returns (bytes memory) {\r
+        return functionCallWithValue(target, data, value, 'Address: low-level call with value failed');\r
+    }\r
+\r
+    /**\r
+     * @dev Same as {xref-Address-functionCallWithValue-address-bytes-uint256-}[`functionCallWithValue`], but\r
+     * with `errorMessage` as a fallback revert reason when `target` reverts.\r
+     *\r
+     * _Available since v3.1._\r
+     */\r
+    function functionCallWithValue(\r
+        address target,\r
+        bytes memory data,\r
+        uint256 value,\r
+        string memory errorMessage\r
+    ) internal returns (bytes memory) {\r
+        require(address(this).balance >= value, 'Address: insufficient balance for call');\r
+        return _functionCallWithValue(target, data, value, errorMessage);\r
+    }\r
+\r
+    function _functionCallWithValue(\r
+        address target,\r
+        bytes memory data,\r
+        uint256 weiValue,\r
+        string memory errorMessage\r
+    ) private returns (bytes memory) {\r
+        require(isContract(target), 'Address: call to non-contract');\r
+\r
+        // solhint-disable-next-line avoid-low-level-calls\r
+        (bool success, bytes memory returndata) = target.call{value: weiValue}(data);\r
+        if (success) {\r
+            return returndata;\r
+        } else {\r
+            // Look for revert reason and bubble it up if present\r
+            if (returndata.length > 0) {\r
+                // The easiest way to bubble the revert reason is using memory via assembly\r
+\r
+                // solhint-disable-next-line no-inline-assembly\r
+                assembly {\r
+                    let returndata_size := mload(returndata)\r
+                    revert(add(32, returndata), returndata_size)\r
+                }\r
+            } else {\r
+                revert(errorMessage);\r
+            }\r
+        }\r
+    }\r
+}\r
+\r
+// \r
+/**\r
+ * @dev Implementation of the {IBEP20} interface.\r
+ *\r
+ * This implementation is agnostic to the way tokens are created. This means\r
+ * that a supply mechanism has to be added in a derived contract using {_mint}.\r
+ * For a generic mechanism see {BEP20PresetMinterPauser}.\r
+ *\r
+ * TIP: For a detailed writeup see our guide\r
+ * https://forum.zeppelin.solutions/t/how-to-implement-BEP20-supply-mechanisms/226[How\r
+ * to implement supply mechanisms].\r
+ *\r
+ * We have followed general OpenZeppelin guidelines: functions revert instead\r
+ * of returning `false` on failure. This behavior is nonetheless conventional\r
+ * and does not conflict with the expectations of BEP20 applications.\r
+ *\r
+ * Additionally, an {Approval} event is emitted on calls to {transferFrom}.\r
+ * This allows applications to reconstruct the allowance for all accounts just\r
+ * by listening to said events. Other implementations of the EIP may not emit\r
+ * these events, as it isn't required by the specification.\r
+ *\r
+ * Finally, the non-standard {decreaseAllowance} and {increaseAllowance}\r
+ * functions have been added to mitigate the well-known issues around setting\r
+ * allowances. See {IBEP20-approve}.\r
+ */\r
+contract BEP20 is Context, IBEP20, Ownable {\r
+    using SafeMath for uint256;\r
+    using Address for address;\r
+\r
+    mapping(address => uint256) private _balances;\r
+\r
+    mapping(address => mapping(address => uint256)) private _allowances;\r
+\r
+    uint256 private _totalSupply;\r
+\r
+    string private _name;\r
+    string private _symbol;\r
+    uint8 private _decimals;\r
+\r
+    /**\r
+     * @dev Sets the values for {name} and {symbol}, initializes {decimals} with\r
+     * a default value of 18.\r
+     *\r
+     * To select a different value for {decimals}, use {_setupDecimals}.\r
+     *\r
+     * All three of these values are immutable: they can only be set once during\r
+     * construction.\r
+     */\r
+    constructor(string memory name, string memory symbol) public {\r
+        _name = name;\r
+        _symbol = symbol;\r
+        _decimals = 18;\r
+    }\r
+\r
+    /**\r
+     * @dev Returns the bep token owner.\r
+     */\r
+    function getOwner() external override view returns (address) {\r
+        return owner();\r
+    }\r
+\r
+    /**\r
+     * @dev Returns the token name.\r
+     */\r
+    function name() public override view returns (string memory) {\r
+        return _name;\r
+    }\r
+\r
+    /**\r
+     * @dev Returns the token decimals.\r
+     */\r
+    function decimals() public override view returns (uint8) {\r
+        return _decimals;\r
+    }\r
+\r
+    /**\r
+     * @dev Returns the token symbol.\r
+     */\r
+    function symbol() public override view returns (string memory) {\r
+        return _symbol;\r
+    }\r
+\r
+    /**\r
+     * @dev See {BEP20-totalSupply}.\r
+     */\r
+    function totalSupply() public override view returns (uint256) {\r
+        return _totalSupply;\r
+    }\r
+\r
+    /**\r
+     * @dev See {BEP20-balanceOf}.\r
+     */\r
+    function balanceOf(address account) public override view returns (uint256) {\r
+        return _balances[account];\r
+    }\r
+\r
+    /**\r
+     * @dev See {BEP20-transfer}.\r
+     *\r
+     * Requirements:\r
+     *\r
+     * - `recipient` cannot be the zero address.\r
+     * - the caller must have a balance of at least `amount`.\r
+     */\r
+    function transfer(address recipient, uint256 amount) public override returns (bool) {\r
+        _transfer(_msgSender(), recipient, amount);\r
+        return true;\r
+    }\r
+\r
+    /**\r
+     * @dev See {BEP20-allowance}.\r
+     */\r
+    function allowance(address owner, address spender) public override view returns (uint256) {\r
+        return _allowances[owner][spender];\r
+    }\r
+\r
+    /**\r
+     * @dev See {BEP20-approve}.\r
+     *\r
+     * Requirements:\r
+     *\r
+     * - `spender` cannot be the zero address.\r
+     */\r
+    function approve(address spender, uint256 amount) public override returns (bool) {\r
+        _approve(_msgSender(), spender, amount);\r
+        return true;\r
+    }\r
+\r
+    /**\r
+     * @dev See {BEP20-transferFrom}.\r
+     *\r
+     * Emits an {Approval} event indicating the updated allowance. This is not\r
+     * required by the EIP. See the note at the beginning of {BEP20};\r
+     *\r
+     * Requirements:\r
+     * - `sender` and `recipient` cannot be the zero address.\r
+     * - `sender` must have a balance of at least `amount`.\r
+     * - the caller must have allowance for `sender`'s tokens of at least\r
+     * `amount`.\r
+     */\r
+    function transferFrom(\r
+        address sender,\r
+        address recipient,\r
+        uint256 amount\r
+    ) public override returns (bool) {\r
+        _transfer(sender, recipient, amount);\r
+        _approve(\r
+            sender,\r
+            _msgSender(),\r
+            _allowances[sender][_msgSender()].sub(amount, 'BEP20: transfer amount exceeds allowance')\r
+        );\r
+        return true;\r
+    }\r
+\r
+    /**\r
+     * @dev Atomically increases the allowance granted to `spender` by the caller.\r
+     *\r
+     * This is an alternative to {approve} that can be used as a mitigation for\r
+     * problems described in {BEP20-approve}.\r
+     *\r
+     * Emits an {Approval} event indicating the updated allowance.\r
+     *\r
+     * Requirements:\r
+     *\r
+     * - `spender` cannot be the zero address.\r
+     */\r
+    function increaseAllowance(address spender, uint256 addedValue) public returns (bool) {\r
+        _approve(_msgSender(), spender, _allowances[_msgSender()][spender].add(addedValue));\r
+        return true;\r
+    }\r
+\r
+    /**\r
+     * @dev Atomically decreases the allowance granted to `spender` by the caller.\r
+     *\r
+     * This is an alternative to {approve} that can be used as a mitigation for\r
+     * problems described in {BEP20-approve}.\r
+     *\r
+     * Emits an {Approval} event indicating the updated allowance.\r
+     *\r
+     * Requirements:\r
+     *\r
+     * - `spender` cannot be the zero address.\r
+     * - `spender` must have allowance for the caller of at least\r
+     * `subtractedValue`.\r
+     */\r
+    function decreaseAllowance(address spender, uint256 subtractedValue) public returns (bool) {\r
+        _approve(\r
+            _msgSender(),\r
+            spender,\r
+            _allowances[_msgSender()][spender].sub(subtractedValue, 'BEP20: decreased allowance below zero')\r
+        );\r
+        return true;\r
+    }\r
+\r
+    /**\r
+     * @dev Creates `amount` tokens and assigns them to `msg.sender`, increasing\r
+     * the total supply.\r
+     *\r
+     * Requirements\r
+     *\r
+     * - `msg.sender` must be the token owner\r
+     */\r
+    function mint(uint256 amount) public onlyOwner returns (bool) {\r
+        _mint(_msgSender(), amount);\r
+        return true;\r
+    }\r
+\r
+    /**\r
+     * @dev Moves tokens `amount` from `sender` to `recipient`.\r
+     *\r
+     * This is internal function is equivalent to {transfer}, and can be used to\r
+     * e.g. implement automatic token fees, slashing mechanisms, etc.\r
+     *\r
+     * Emits a {Transfer} event.\r
+     *\r
+     * Requirements:\r
+     *\r
+     * - `sender` cannot be the zero address.\r
+     * - `recipient` cannot be the zero address.\r
+     * - `sender` must have a balance of at least `amount`.\r
+     */\r
+    function _transfer(\r
+        address sender,\r
+        address recipient,\r
+        uint256 amount\r
+    ) internal {\r
+        require(sender != address(0), 'BEP20: transfer from the zero address');\r
+        require(recipient != address(0), 'BEP20: transfer to the zero address');\r
+\r
+        _balances[sender] = _balances[sender].sub(amount, 'BEP20: transfer amount exceeds balance');\r
+        _balances[recipient] = _balances[recipient].add(amount);\r
+        emit Transfer(sender, recipient, amount);\r
+    }\r
+\r
+    /** @dev Creates `amount` tokens and assigns them to `account`, increasing\r
+     * the total supply.\r
+     *\r
+     * Emits a {Transfer} event with `from` set to the zero address.\r
+     *\r
+     * Requirements\r
+     *\r
+     * - `to` cannot be the zero address.\r
+     */\r
+    function _mint(address account, uint256 amount) internal {\r
+        require(account != address(0), 'BEP20: mint to the zero address');\r
+\r
+        _totalSupply = _totalSupply.add(amount);\r
+        _balances[account] = _balances[account].add(amount);\r
+        emit Transfer(address(0), account, amount);\r
+    }\r
+\r
+    /**\r
+     * @dev Destroys `amount` tokens from `account`, reducing the\r
+     * total supply.\r
+     *\r
+     * Emits a {Transfer} event with `to` set to the zero address.\r
+     *\r
+     * Requirements\r
+     *\r
+     * - `account` cannot be the zero address.\r
+     * - `account` must have at least `amount` tokens.\r
+     */\r
+    function _burn(address account, uint256 amount) internal {\r
+        require(account != address(0), 'BEP20: burn from the zero address');\r
+\r
+        _balances[account] = _balances[account].sub(amount, 'BEP20: burn amount exceeds balance');\r
+        _totalSupply = _totalSupply.sub(amount);\r
+        emit Transfer(account, address(0), amount);\r
+    }\r
+\r
+    /**\r
+     * @dev Sets `amount` as the allowance of `spender` over the `owner`s tokens.\r
+     *\r
+     * This is internal function is equivalent to `approve`, and can be used to\r
+     * e.g. set automatic allowances for certain subsystems, etc.\r
+     *\r
+     * Emits an {Approval} event.\r
+     *\r
+     * Requirements:\r
+     *\r
+     * - `owner` cannot be the zero address.\r
+     * - `spender` cannot be the zero address.\r
+     */\r
+    function _approve(\r
+        address owner,\r
+        address spender,\r
+        uint256 amount\r
+    ) internal {\r
+        require(owner != address(0), 'BEP20: approve from the zero address');\r
+        require(spender != address(0), 'BEP20: approve to the zero address');\r
+\r
+        _allowances[owner][spender] = amount;\r
+        emit Approval(owner, spender, amount);\r
+    }\r
+\r
+    /**\r
+     * @dev Destroys `amount` tokens from `account`.`amount` is then deducted\r
+     * from the caller's allowance.\r
+     *\r
+     * See {_burn} and {_approve}.\r
+     */\r
+    function _burnFrom(address account, uint256 amount) internal {\r
+        _burn(account, amount);\r
+        _approve(\r
+            account,\r
+            _msgSender(),\r
+            _allowances[account][_msgSender()].sub(amount, 'BEP20: burn amount exceeds allowance')\r
+        );\r
+    }\r
+}\r
+\r
+// CakeToken with Governance.\r
+contract CakeToken is BEP20('PancakeSwap Token', 'Cake') {\r
+    /// @notice Creates `_amount` token to `_to`. Must only be called by the owner (MasterChef).\r
+    function mint(address _to, uint256 _amount) public onlyOwner {\r
+        _mint(_to, _amount);\r
+        _moveDelegates(address(0), _delegates[_to], _amount);\r
+    }\r
+\r
+    // Copied and modified from YAM code:\r
+    // https://github.com/yam-finance/yam-protocol/blob/master/contracts/token/YAMGovernanceStorage.sol\r
+    // https://github.com/yam-finance/yam-protocol/blob/master/contracts/token/YAMGovernance.sol\r
+    // Which is copied and modified from COMPOUND:\r
+    // https://github.com/compound-finance/compound-protocol/blob/master/contracts/Governance/Comp.sol\r
+\r
+    /// @notice A record of each accounts delegate\r
+    mapping (address => address) internal _delegates;\r
+\r
+    /// @notice A checkpoint for marking number of votes from a given block\r
+    struct Checkpoint {\r
+        uint32 fromBlock;\r
+        uint256 votes;\r
+    }\r
+\r
+    /// @notice A record of votes checkpoints for each account, by index\r
+    mapping (address => mapping (uint32 => Checkpoint)) public checkpoints;\r
+\r
+    /// @notice The number of checkpoints for each account\r
+    mapping (address => uint32) public numCheckpoints;\r
+\r
+    /// @notice The EIP-712 typehash for the contract's domain\r
+    bytes32 public constant DOMAIN_TYPEHASH = keccak256(\"EIP712Domain(string name,uint256 chainId,address verifyingContract)\");\r
+\r
+    /// @notice The EIP-712 typehash for the delegation struct used by the contract\r
+    bytes32 public constant DELEGATION_TYPEHASH = keccak256(\"Delegation(address delegatee,uint256 nonce,uint256 expiry)\");\r
+\r
+    /// @notice A record of states for signing / validating signatures\r
+    mapping (address => uint) public nonces;\r
+\r
+      /// @notice An event thats emitted when an account changes its delegate\r
+    event DelegateChanged(address indexed delegator, address indexed fromDelegate, address indexed toDelegate);\r
+\r
+    /// @notice An event thats emitted when a delegate account's vote balance changes\r
+    event DelegateVotesChanged(address indexed delegate, uint previousBalance, uint newBalance);\r
+\r
+    /**\r
+     * @notice Delegate votes from `msg.sender` to `delegatee`\r
+     * @param delegator The address to get delegatee for\r
+     */\r
+    function delegates(address delegator)\r
+        external\r
+        view\r
+        returns (address)\r
+    {\r
+        return _delegates[delegator];\r
+    }\r
+\r
+   /**\r
+    * @notice Delegate votes from `msg.sender` to `delegatee`\r
+    * @param delegatee The address to delegate votes to\r
+    */\r
+    function delegate(address delegatee) external {\r
+        return _delegate(msg.sender, delegatee);\r
+    }\r
+\r
+    /**\r
+     * @notice Delegates votes from signatory to `delegatee`\r
+     * @param delegatee The address to delegate votes to\r
+     * @param nonce The contract state required to match the signature\r
+     * @param expiry The time at which to expire the signature\r
+     * @param v The recovery byte of the signature\r
+     * @param r Half of the ECDSA signature pair\r
+     * @param s Half of the ECDSA signature pair\r
+     */\r
+    function delegateBySig(\r
+        address delegatee,\r
+        uint nonce,\r
+        uint expiry,\r
+        uint8 v,\r
+        bytes32 r,\r
+        bytes32 s\r
+    )\r
+        external\r
+    {\r
+        bytes32 domainSeparator = keccak256(\r
+            abi.encode(\r
+                DOMAIN_TYPEHASH,\r
+                keccak256(bytes(name())),\r
+                getChainId(),\r
+                address(this)\r
+            )\r
+        );\r
+\r
+        bytes32 structHash = keccak256(\r
+            abi.encode(\r
+                DELEGATION_TYPEHASH,\r
+                delegatee,\r
+                nonce,\r
+                expiry\r
+            )\r
+        );\r
+\r
+        bytes32 digest = keccak256(\r
+            abi.encodePacked(\r
+                \"\\x19\\x01\",\r
+                domainSeparator,\r
+                structHash\r
+            )\r
+        );\r
+\r
+        address signatory = ecrecover(digest, v, r, s);\r
+        require(signatory != address(0), \"CAKE::delegateBySig: invalid signature\");\r
+        require(nonce == nonces[signatory]++, \"CAKE::delegateBySig: invalid nonce\");\r
+        require(now <= expiry, \"CAKE::delegateBySig: signature expired\");\r
+        return _delegate(signatory, delegatee);\r
+    }\r
+\r
+    /**\r
+     * @notice Gets the current votes balance for `account`\r
+     * @param account The address to get votes balance\r
+     * @return The number of current votes for `account`\r
+     */\r
+    function getCurrentVotes(address account)\r
+        external\r
+        view\r
+        returns (uint256)\r
+    {\r
+        uint32 nCheckpoints = numCheckpoints[account];\r
+        return nCheckpoints > 0 ? checkpoints[account][nCheckpoints - 1].votes : 0;\r
+    }\r
+\r
+    /**\r
+     * @notice Determine the prior number of votes for an account as of a block number\r
+     * @dev Block number must be a finalized block or else this function will revert to prevent misinformation.\r
+     * @param account The address of the account to check\r
+     * @param blockNumber The block number to get the vote balance at\r
+     * @return The number of votes the account had as of the given block\r
+     */\r
+    function getPriorVotes(address account, uint blockNumber)\r
+        external\r
+        view\r
+        returns (uint256)\r
+    {\r
+        require(blockNumber < block.number, \"CAKE::getPriorVotes: not yet determined\");\r
+\r
+        uint32 nCheckpoints = numCheckpoints[account];\r
+        if (nCheckpoints == 0) {\r
+            return 0;\r
+        }\r
+\r
+        // First check most recent balance\r
+        if (checkpoints[account][nCheckpoints - 1].fromBlock <= blockNumber) {\r
+            return checkpoints[account][nCheckpoints - 1].votes;\r
+        }\r
+\r
+        // Next check implicit zero balance\r
+        if (checkpoints[account][0].fromBlock > blockNumber) {\r
+            return 0;\r
+        }\r
+\r
+        uint32 lower = 0;\r
+        uint32 upper = nCheckpoints - 1;\r
+        while (upper > lower) {\r
+            uint32 center = upper - (upper - lower) / 2; // ceil, avoiding overflow\r
+            Checkpoint memory cp = checkpoints[account][center];\r
+            if (cp.fromBlock == blockNumber) {\r
+                return cp.votes;\r
+            } else if (cp.fromBlock < blockNumber) {\r
+                lower = center;\r
+            } else {\r
+                upper = center - 1;\r
+            }\r
+        }\r
+        return checkpoints[account][lower].votes;\r
+    }\r
+\r
+    function _delegate(address delegator, address delegatee)\r
+        internal\r
+    {\r
+        address currentDelegate = _delegates[delegator];\r
+        uint256 delegatorBalance = balanceOf(delegator); // balance of underlying CAKEs (not scaled);\r
+        _delegates[delegator] = delegatee;\r
+\r
+        emit DelegateChanged(delegator, currentDelegate, delegatee);\r
+\r
+        _moveDelegates(currentDelegate, delegatee, delegatorBalance);\r
+    }\r
+\r
+    function _moveDelegates(address srcRep, address dstRep, uint256 amount) internal {\r
+        if (srcRep != dstRep && amount > 0) {\r
+            if (srcRep != address(0)) {\r
+                // decrease old representative\r
+                uint32 srcRepNum = numCheckpoints[srcRep];\r
+                uint256 srcRepOld = srcRepNum > 0 ? checkpoints[srcRep][srcRepNum - 1].votes : 0;\r
+                uint256 srcRepNew = srcRepOld.sub(amount);\r
+                _writeCheckpoint(srcRep, srcRepNum, srcRepOld, srcRepNew);\r
+            }\r
+\r
+            if (dstRep != address(0)) {\r
+                // increase new representative\r
+                uint32 dstRepNum = numCheckpoints[dstRep];\r
+                uint256 dstRepOld = dstRepNum > 0 ? checkpoints[dstRep][dstRepNum - 1].votes : 0;\r
+                uint256 dstRepNew = dstRepOld.add(amount);\r
+                _writeCheckpoint(dstRep, dstRepNum, dstRepOld, dstRepNew);\r
+            }\r
+        }\r
+    }\r
+\r
+    function _writeCheckpoint(\r
+        address delegatee,\r
+        uint32 nCheckpoints,\r
+        uint256 oldVotes,\r
+        uint256 newVotes\r
+    )\r
+        internal\r
+    {\r
+        uint32 blockNumber = safe32(block.number, \"CAKE::_writeCheckpoint: block number exceeds 32 bits\");\r
+\r
+        if (nCheckpoints > 0 && checkpoints[delegatee][nCheckpoints - 1].fromBlock == blockNumber) {\r
+            checkpoints[delegatee][nCheckpoints - 1].votes = newVotes;\r
+        } else {\r
+            checkpoints[delegatee][nCheckpoints] = Checkpoint(blockNumber, newVotes);\r
+            numCheckpoints[delegatee] = nCheckpoints + 1;\r
+        }\r
+\r
+        emit DelegateVotesChanged(delegatee, oldVotes, newVotes);\r
+    }\r
+\r
+    function safe32(uint n, string memory errorMessage) internal pure returns (uint32) {\r
+        require(n < 2**32, errorMessage);\r
+        return uint32(n);\r
+    }\r
+\r
+    function getChainId() internal pure returns (uint) {\r
+        uint256 chainId;\r
+        assembly { chainId := chainid() }\r
+        return chainId;\r
+    }\r
+}
+
