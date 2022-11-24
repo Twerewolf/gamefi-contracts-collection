@@ -1,0 +1,197 @@
+Project	Website	Type	TVL	UAW / month	Notes	id in coinmarketcap api listing	type in  coinmarketcap api	BEP20	BEP721	other	deployer wallet address	total smart contracts num
+Binary X	https://www.binaryx.pro	Gamefi	$1.63B	22.14k		9891	"""tags"": [
+                ""mvb"",
+                ""bnb-chain""
+            ],"	"BNX：0x8C851d1a123Ff703BD1f9dabe631b69902Df5f97
+CyberDragon Gold(Verified):0xb3a6381070B1a15169DEA646166EC0699fDAeA79
+ Cyber Crystal (Crystal)：0x6AD7e691f1d2723523e70751f82052A8A2C47726"	"0x22f3e436df132791140571fc985eb17ab1846494/
+deprecated: 0x259a345e626fde605e99f36d962f16e5c5914221/
+0xb837c644bd5110f1749d22a8c5c98868e7c9f625(deprecated)/
+0x0d9ceec3b2706fd2a0892dc382d5476e338b412c(deprecated/
+Robber: 0xaf9a274c9668d68322b0dcd9043d79cd1ebd41b3/
+Mage: 0xc6db06ff6e97a6dc4304f7615cdd392a9cf13f44/
+Cleric: 0x579A3e1C40124b6bcb3d244bb9a0A816aeD0c78D/
+Druid: 0x1505fc2ca150971ba8f254771359e50bcf26610f/
+knight: 0x7773bd9b39989f9610b17ca5972546bd475b8faa"	"nft质押：0x667FadD41dF74968fFadF6DC4193065f8D2cCbE0
+购买nft：0xC2342497c786AaDc2e97E04297f67012e52d5264
+"	0x1221979949248eb2132720c173212d327f0d389b	99
+Galactic Arena	https://galacticarena.io/	Gamefi	$129.87M	828		12957	"tags": [],	GAN：0x8F1408171EAe06AEC4549fD0a5808A42cee6DD84	GA-HERO: 0xB20E1692799C8Bb45cCf08086C1224d3df2eD917	"nft买卖市场：0x91418032Bf369911a82223Ec00009e90165e17BB(nft 会转移出来)
+harvest(yield farming?): 0xdDb35EE8d3B54216B114190a1Bc14eB11408BE23"	0x94466E29fe4A77752da9113DB02D75Ee1A12A856	"3
+0x8F1408171EAe06AEC4549fD0a5808A42cee6DD84
+0xddb35ee8d3b54216b114190a1bc14eb11408be23
+0x0c89c0407775dd89b12918b9c0aa42bf96518820(lock tokens, LP??)"
+Singularity	https://www.singularity.gold/	Gamefi	$59.62M	60	单独建链，没有参考价值			SGLY: 0x5f50411cde3eec27b0eac21691b4e500c69a5a2e				
+Mobox	https://www.mobox.io/	Gamefi	$46.75M	42.72K		9175	"""tags"": [
+                ""collectibles-nfts"",
+                ""defi"",
+                ""gaming"",
+                ""yield-farming"",
+                ""metaverse"",
+                ""play-to-earn"",
+                ""bnb-chain""
+            ],"	"Mobox Token:0x3203c9E46cA618C8C1cE5dC67e7e9D75f5da2377
+Mobox Key Token:0x85c128eE1feEb39A59490c720A9C563554B51D33
+ 
+"	"逻辑合约：0xbe363cCa482e0e5e3865302cEab098D2e6BDCf51（在proxy部署时的入参得到）
+MOMO: 0x4eeDeDfe89dad70aB8cbf70E4dD140Ff8E6e8ce5
+
+逻辑合约：0xA11564852273D2892D3E90277466285EAB8BA0aE
+MOMO M: 0xb3E968ba01A78Ea489292130BCf8bbe6A64Be648
+
+逻辑合约：0x96252D83dc3EABE1284250aedd485d1462172ED9
+ERC1155:  MOMO Enhance Crystal (MEC): 代理合约0x98387108842a7CfC7bA23E080030351f6ea68ac0
+
+更新权限地址：0x445eFB4EfBf3ed3f00DB08ed8be312aB45DfC1d6"	"Mystery Box: 0xed8711fEff83b446158259981FD97645856e82A5
+Proxy: 0x9cfa26eb210446fffd248e6c048f11b51ba61507
+NFT操作Proxy: 0x3bD6a582698ECCf6822dB08141818A1a8512c68D
+
+MOMO Farm logic contract(in block 6211399): 0xc667e8ac55590d140957df005ca0c2ef6969827
+MOMO Farm updated logic contract2(in block 6251532): 0xf6DA382573A9fF0E1f9BA67C95E47AFD04C863F7
+MOMO Farm(Proxy):0xdaD49e63F97c967955975490a432de3796C699E6
+
+Mobox Staking:0x3bD6a582698ECCf6822dB08141818A1a8512c68D
+MomoProxy:0x3bD6a582698ECCf6822dB08141818A1a8512c68D
+MoboxMainPool:0x99AED0004426A00f10b5278D7cD3C09d4Bb5Af7F
+MoboxEventPool:0x0D32E690872421c911B2F7541895911CE0b0916d
+MoboxPartnerPool:0xb3431DeE53D3b8cadd66CfF9b806d3a33B13545a
+Unknown:0x1da9b6e37f006dD349089dEA21cb8261391593D5
+Unknown:0xCad9146102D29175Fd7908EB6820A48E4FC78CEA"	0x76975bD7c484FcaCD9507fEB67A1394701d4335C	45
+Era7: Game of Truth statistics	https://www.era7.io/	Gamefi	$29.05M	48.49K	bad reputation	18483	gaming	"GOT:0xDA71E3eC0d579FED5dbABa31eEaD3cEB9e77A928
+ERA:0x6f9F0c4ad9Af7EbD61Ac5A1D4e0F2227F7B0E5f9"	0x07D971C03553011a48E951a53F48632D37652Ba1	"nft操作：0xA2304Fc66299339bd128b123CddB416f3aE99765
+开盲盒：0xB193330e548A36902Dfa70CCCA406DC3cc28c019(ERC1155，可能是材料类？)
+迁移（farm收获）：0xEc837F80bBdC57B5ff8aFc1a4238a99724B1d1b3"	"GOT: 0x29F2f3E5041E0F17AEBB41C90401aFF51fFc54C5
+ERA: 0xD4f040FD57Ae2d7497c2fD8c262b65030df8f64C
+NFT：0x29F2f3E5041E0F17AEBB41C90401aFF51fFc54C5"	21
+SX.BET	https://sx.bet/	Gambling	$27.53M	391	ethereum/polygon，非bnb/并有自己的侧链							
+Midas Miner	https://www.midasminer.io/	Gamefi	$17.57M	8.1K	全部verified	can found in web but can not found in api response		Midas Miner (MMI):0xFdcaBD329dc59615dca6Df02Ff942C047468E61C	"MidasMinerGame
+(Midas Miner Character (MMC)):0x00356Ebf43a3f6Bef6b7d003b9Ada4AF7d86c265
+
+"	0x4fdfa1716d1135c68dcab94f5dbfdee695346835	0x3a2B482cAbDEE293969A6D427c561D7A11cb545D	"6 
+0xFdcaBD329dc59615dca6Df02Ff942C047468E61C
+0x00356Ebf43a3f6Bef6b7d003b9Ada4AF7d86c265
+0x35069785183cfacf7e20a498a3967efbbcb9ac1e(PancakeSwap V2: MMI 33)
+0x407993575c91ce7643a4d4ccacc9a98c36ee1bbe(pinksale,代币创建launchpad)
+0xafe9842b702edc5be723d139c0925bf38ea78819
+0x4fdfa1716d1135c68dcab94f5dbfdee695346835 "
+Hero Blaze : Three Kingdoms	https://heroblaze3kd.io/	Gamefi	$3.59M	899		can found in web but can not found in api response		0x5e7f472B9481C80101b22D0bA4ef4253Aa61daBc		"0x00a6e93e3ce5300e41e8ed25ebd69c328fd45e5a
+0xeb700b4090e1ed4c9d34386f73b4e706c8fe334d"	0x3fEd17b0Ce085AC209406e489BB916Eeef99D38B	"9
+0x5e7f472B9481C80101b22D0bA4ef4253Aa61daBc
+0x37F5575e32866bcf122022339D1a1e9EF27763E8
+0x00a6e93e3ce5300e41e8ed25ebd69c328fd45e5a
+0xeb700b4090e1ed4c9d34386f73b4e706c8fe334d
+0x56ed443AD9A724a883EfB8CABAd9724eeA3fFe7a
+0xaA0856084Ea21541526307945231338adc809519
+0x7f385F3d92501ba048B92F715D929Cbf15F98792
+0x159eeaE61a592A157964f36e68407ED49a4AEf3c
+0x8675139ae2735C987C224bf280E13b3A92d00628(Orbit Bridge BSC Mudol Token (oMUDOL))"
+Catecoin	https://app.catecoin.club/	Social	$2.96M	436		9656	"""tags"": [
+                ""collectibles-nfts"",
+                ""defi"",
+                ""gaming"",
+                ""entertainment"",
+                ""memes"",
+                ""staking"",
+                ""dapp"",
+                ""play-to-earn"",
+                ""oxbull"",
+                ""bnb-chain""
+            ],"	0xe4fae3faa8300810c835970b9187c268f55d998f				
+League of Ancients	https://leagueofancients.com/	Gamefi	$2.79M	1		15870	"tags": [],	0x94b69263fca20119ae817b6f783fc0f13b02ad50	"not open, nft skin from capsule, seem coming soon
+"	"LoaPreSale:0x9e36107edA8e9Ce9EEb5d3D34c13CACE25bc4f12
+daily transfer(官网是claim):0xd178a9F0cfD93e55949044e5E8220407EF4e6be8
+LOAStaking:0x01d1647FB4b621E709cf9d0E6Cd3b425562B11F0
+
+"	0x79B6e6BFE4A2AFa5769d8fCe37218D6313F6f8e0	0x94b69263fca20119ae817b6f783fc0f13b02ad50
+Kryptomon	https://www.kryptomon.co/	Gamefi	$2.02M	1.04K		11291	"""tags"": [
+                ""collectibles-nfts"",
+                ""gaming"",
+                ""poolz-finance-portfolio"",
+                ""exnetwork-capital-portfolio"",
+                ""polkafoundry-red-kite"",
+                ""play-to-earn"",
+                ""icetea-labs""
+            ],"	"KryptomonCoin(ERC20Upgradeable):0x67E140851545cCE81EB35b990A13Cbd948B0Fa46
+AdminUpgradeabilityProxy(Proxy for KmonCoin):0xc732B6586A93b6B7CF5FeD3470808Bc74998224D
+"	"Kryptomon (KMONFT):0x04B0f7d5CB2CE4688497f2525748FB7A9aFFa394
+Proxy:0xC33d69a337B796A9f0F7588169cd874C3987BDE9"	"TransparentUpgradeableProxy:0xC33d69a337B796A9f0F7588169cd874C3987BDE9
+ Kryptomon Lottery:0x7A16658f04c32D2df40726E3028b600D585D99A5
+ Binance NFT Mystery Box-Kryptomon:0xC4bdb04878e1B0c872bC1152751a16a968001a00
+RedeemNFT:0x1a1E83b6F7C39c17Bb507fbBA609e148ab50C31A
+TransparentUpgradeableProxy(create/execute order):0x61BB68bcA6eB9DCb434A52fBCB999a353c283aFF
+TransparentUpgradeableProxy(place bid):0x51EeD96088ED0f6F63C1073d55092bF95a5227fc
+TransparentUpgradeableProxy(buy item):0xbf2E98268c8A90eE943c6Ef8E7340F0052F26b0d
+StakingRewards:0x16108bcDC5C52a426F823FBF83aBFde763E91ABf
+"	"Kryptomons-Deployer-1:0xAFE140dBfE00606990D913c04eFD318701C99d17
+"	"0xc33d69a337b796a9f0f7588169cd874c3987bde9
+0x61BB68bcA6eB9DCb434A52fBCB999a353c283aFF
+0x51EeD96088ED0f6F63C1073d55092bF95a5227fc
+0xbf2E98268c8A90eE943c6Ef8E7340F0052F26b0d
+0x16108bcDC5C52a426F823FBF83aBFde763E91ABf
+0xc732b6586a93b6b7cf5fed3470808bc74998224d
+0x04b0f7d5cb2ce4688497f2525748fb7a9affa394"
+Tiny World	https://app.tinyworlds.io/	Gamefi	$1.65M	83.86K		18646	"tags": [],	Tiny Coin:0x05aD6E30A855BE07AfA57e08a4f30d00810a402e	"Proxy: 0x37e678d782d38a75EB16130b39C4ce2d7E3cC808
+ERC1155 Proxy:0xD80EdcF7C73B43852dA39497a6B5E9cbA1Edf39e"	TransparentUpgradeableProxy(Create Auction):0xf15df2f14A0cC26fd058D8Ded79Ec858428f2281	0x802f0928081A248eb3a976Fd84B15e4Ac40A5Ef2	"31
+0xf15df2f14A0cC26fd058D8Ded79Ec858428f2281
+0x390E1ba132eD9Ff3394D8aa484983cc8C85f8149
+0xD80EdcF7C73B43852dA39497a6B5E9cbA1Edf39e
+..."
+CUBE	https://itamcube.com/	Marketplace	$1.60M	1.17K		17027(eth)	"tags": [],	"ITAM Games:0x04C747b40Be4D535fC83D09939fb0f626F32800B
+0xbbab3bdb291b0f22bc9881895ff488a5db67bec8(ethereum)"	Lime Odyssey:0x2A62623BBB82Ac60795d2015D70cc87861258Def	"NFT market:0xeb448071b405ebf3bf50e87ea645f0b5b7421d31
+buy NFT: 0xa015bd64047624ea72b7e09d7ddbab5bad32ac9b
+
+"	"0xD8B630Fd07855265BbcF884c71ea83D41a6E2Ed5
+"	"34
+0xeb448071b405ebf3bf50e87ea645f0b5b7421d31
+0xa015bd64047624ea72b7e09d7ddbab5bad32ac9b
+0x04C747b40Be4D535fC83D09939fb0f626F32800B
+..."
+PLT lottery	https://www.pltlotto.com/	Gambling	$1.58M	-		15921	tags: [],	0x631C2f0EdABaC799f07550aEE4fF0Bf7fd35212B			Pool Lotto: Deployer:0xbbB0BF47F04Ef65C0D17641C1238469A88ce59b9	0x631C2f0EdABaC799f07550aEE4fF0Bf7fd35212B
+DracooMaster	https://world.dracoomaster.com/	Gamefi	$1.35M	4.33K		19587	tags: [],	"DracooMaster:0x4dB77c2272047f42262153F43cc1ADacD5375962
+BASToken:0x40FfAFcd7415ed2F7A902312407181140Ad14E68"	"DracooBox:0x4064604758Ae9C59784992cAe4aF85f880e9bC83
+DraccoBox2:0x48a152186a0fc569c624DF04b92b28a1b5d2eFc1"	"OpenBox:0x3A395CF961bA9153DebcD65d88307c1907f0B0b4
+0x748934B822a52903bDf8Cda7d32A4943463E0403"	0xF9687408fB4A3C8583e6d229F14a4995A766dDbe	"23
+0x4dB77c2272047f42262153F43cc1ADacD5375962
+0x2be763f82C0D45bd371C363653C4940dA7c81882
+0x40ffafcd7415ed2f7a902312407181140ad14e68
+..."
+Outer Ring MMO	https://outerringmmo.com/	Gamefi	$1.18M	3.24K		16057	"""tags"": [
+                ""gaming"",
+                ""metaverse"",
+                ""play-to-earn"",
+                ""kommunitas-launchpad""
+            ],"	"GalacticQuadrant(GQ):
+0xF700D4c708C2be1463E355F337603183D20E0808"		"VoteManager: 0x617ca8773d94d362c88fbc069cf147ad744498ac
+TransparentUpgradeableProxy:0xeCeB6F7Fd8Cc326bb7f16eFABfFFF6fA8cFb3e60
+StakingVote:0x98F66C1b103E46f855f1Ad17C5C52286D5Fb7CDF"	0xB6Af19068482ec5feb4c4ef7f81a4dFdFa0BbAD2	"27
+0xF700D4c708C2be1463E355F337603183D20E0808
+0xeCeB6F7Fd8Cc326bb7f16eFABfFFF6fA8cFb3e60
+0x98F66C1b103E46f855f1Ad17C5C52286D5Fb7CDF
+..."
+Mint Club	https://mint.club/	Social	$1.05M	88		10977	"""tags"": [
+                ""social-token"",
+                ""bnb-chain""
+            ],"	"MintClubToken:0x1f3Af095CDa17d63cad238358837321e95FC5915
+
+
+"		"MintClubBond:0x8BBac0C7583Cc146244a18863E708bFFbbF19975
+MintClubZapV2:0x5d1f0031eC952761294D6326A41f123AE7785546"	0x3035DEE64c8dBe813a464a0263CE0C365C454d54	"7
+0x1f3Af095CDa17d63cad238358837321e95FC5915
+0x8BBac0C7583Cc146244a18863E708bFFbbF19975
+0x5d1f0031eC952761294D6326A41f123AE7785546
+0x9111A272e9dE242Cf9aa7932a42dB3664Ca3eC9D
+0xa27f40B02dD20eBA689791aE0F7E59a18963F521
+0x35A358F72024ac7ca040CAAE314296E5377E6157
+0x1be3594f756C6725Fe99741077DEEB87f531B31F"
+My DeFi Pet	https://www.mydefipet.com/	Gamefi	$1.05M	274		9665	" ""tags"": [
+                ""collectibles-nfts"",
+                ""gaming"",
+                ""animoca-brands-portfolio"",
+                ""okex-blockdream-ventures-portfolio"",
+                ""bnb-chain""
+            ],"	DPETToken：0xfb62AE373acA027177D1c18Ee0862817f9080d08	My DeFi Pet (MDP):0xea2e87ff1bc1E52b640452694E2F143F7f8D64bE(实际不是721)		0xc0e9442d0Fca031F30DC740B9d4c3b3E92D90e0c	"5
+0xea2e87ff1bc1E52b640452694E2F143F7f8D64bE
+0x0a75ACA514e65c073D385a65563382d27C9914bA
+0x3E034B729cdb44C7D904fbEBc984C31a5B33aCcb
+0x266dFD709C7A4876BD789a1c62B4e8809F68524f
+0xfb62ae373aca027177d1c18ee0862817f9080d08"
+TCG World	https://tcg.world/	Gamefi	$1.03M	1				TCGCoin20:0xF73d8276C15Ce56b2f4AeE5920e62F767A7f3aEA			0x0D4897e58374b8C8C12b949C84249184F84DAD06	0xF73d8276C15Ce56b2f4AeE5920e62F767A7f3aEA

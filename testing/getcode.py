@@ -18,7 +18,7 @@ for i in contractList:
     url = "https://bscscan.com/address/{contractAddress}#code".format(
         contractAddress=contractAddr)
     print("url: {url}".format(url=url))
-    if()
+    # if()
     if len(contractAddr)<1 :
         continue
     command = "curl " + url + " > " + contractAddr + ".html"
