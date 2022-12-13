@@ -1,3 +1,4 @@
+from sys import argv
 
 def clean(infile, outfile):
     infopen = open(infile, 'r', encoding="utf-8")
@@ -21,3 +22,4 @@ def clean(infile, outfile):
 if __name__ == '__main__':
 
     clean("./dirtyAddresses.txt", "cleanAddr.txt")
+    

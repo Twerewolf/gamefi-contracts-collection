@@ -11,17 +11,17 @@ infopen = open('./miss.txt', 'r', encoding="utf-8")
 contractList = infopen.readlines()
 
 for i in contractList:
-    if(i[-1]=='\n'):
+    if (i[-1] == '\n'):
         contractAddr = i[:-1]
     else:
         contractAddr = i
     url = "https://bscscan.com/address/{contractAddress}#code".format(
         contractAddress=contractAddr)
-    print("url: {url}".format(url=url))
+    print("url: ", url)
     # if()
-    if len(contractAddr)<1 :
+    if len(contractAddr) < 1:
         continue
-    command = "curl " + url + " > " + " ./code/"+  contractAddr + ".html"
+    command = "curl " + url + " > " + " ./code/" + contractAddr + ".html"
 
     res = os.system(command)
 

@@ -1,0 +1,76 @@
+{
+    "message": "success",
+    "code": 0,
+    "data": [
+      {
+        "chain": "BNB Chain",
+        "contract_address": "0x3019bf2a2ef8040c242c9a4c5c4bd4c81678b2a1",
+        "contract_name": null,
+        "protocol_slug": "stepn",
+        "created_by": "system",
+        "created_at": "2022-11-28 06:52:57.270",
+        "updated_by": "eric",
+        "updated_at": "2022-11-28 06:52:57.270"
+      },
+      {
+        "chain": "BNB Chain",
+        "contract_address": "0x4a2c860cec6471b9f5f5a336eb4f38bb21683c98",
+        "contract_name": null,
+        "protocol_slug": "stepn",
+        "created_by": "system",
+        "created_at": "2022-11-28 06:52:57.270",
+        "updated_by": "eric",
+        "updated_at": "2022-11-28 06:52:57.270"
+      },
+      {
+        "chain": "Solana",
+        "contract_address": "7i5kksx2weitkry7ja4zwsuxghs5ejbejy8vvxr4pfrx",
+        "contract_name": null,
+        "protocol_slug": "stepn",
+        "created_by": "system",
+        "created_at": "2022-11-28 06:52:57.270",
+        "updated_by": "eric",
+        "updated_at": "2022-11-28 06:52:57.270"
+      },
+      {
+        "chain": "Solana",
+        "contract_address": "HLS5Y68QSQgJP7wUbbbbCjEnMknVZrHXYDwwVaDcsdK7",
+        "contract_name": null,
+        "protocol_slug": "stepn",
+        "created_by": "acer",
+        "created_at": "2022-11-28 06:52:57.270",
+        "updated_by": "eric",
+        "updated_at": "2022-11-28 06:52:57.270"
+      },
+      {
+        "chain": "Solana",
+        "contract_address": "HhXAKYmRzBNi7BjkDs2fbwJ49mnpWUtzyXEf8PAMArs4",
+        "contract_name": null,
+        "protocol_slug": "stepn",
+        "created_by": "acer",
+        "created_at": "2022-11-28 06:52:57.270",
+        "updated_by": "eric",
+        "updated_at": "2022-11-28 06:52:57.270"
+      },
+      {
+        "chain": "Solana",
+        "contract_address": "STEPNq2UGeGSzCyGVr2nMQAzf8xuejwqebd84wcksCK",
+        "contract_name": null,
+        "protocol_slug": "stepn",
+        "created_by": "acer",
+        "created_at": "2022-11-28 06:52:57.270",
+        "updated_by": "eric",
+        "updated_at": "2022-11-28 06:52:57.270"
+      },
+      {
+        "chain": "Solana",
+        "contract_address": "afbx8ogjgpmvfywbvouvhqsrmiw2ar1mohfahi4y2adb",
+        "contract_name": null,
+        "protocol_slug": "stepn",
+        "created_by": "system",
+        "created_at": "2022-11-28 06:52:57.270",
+        "updated_by": "eric",
+        "updated_at": "2022-11-28 06:52:57.270"
+      }
+    ]
+  }

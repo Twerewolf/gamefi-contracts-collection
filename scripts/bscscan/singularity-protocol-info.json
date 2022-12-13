@@ -1,0 +1,96 @@
+{
+    "message": "success",
+    "code": 0,
+    "data": [
+      {
+        "chain": "BNB Chain",
+        "contract_address": "0x125e9edacbbeea82c131e1566a1dc54f0e6e3974",
+        "contract_name": null,
+        "protocol_slug": "singularity",
+        "created_by": "system",
+        "created_at": "2022-11-28 06:52:57.270",
+        "updated_by": "eric",
+        "updated_at": "2022-11-28 06:52:57.270"
+      },
+      {
+        "chain": "BNB Chain",
+        "contract_address": "0x2ef4b73b16d5fda2b30a592ccd202d7980be387e",
+        "contract_name": null,
+        "protocol_slug": "singularity",
+        "created_by": "system",
+        "created_at": "2022-11-28 06:52:57.270",
+        "updated_by": "eric",
+        "updated_at": "2022-11-28 06:52:57.270"
+      },
+      {
+        "chain": "BNB Chain",
+        "contract_address": "0x5f50411cde3eec27b0eac21691b4e500c69a5a2e",
+        "contract_name": null,
+        "protocol_slug": "singularity",
+        "created_by": "system",
+        "created_at": "2022-11-28 06:52:57.270",
+        "updated_by": "eric",
+        "updated_at": "2022-11-28 06:52:57.270"
+      },
+      {
+        "chain": "BNB Chain",
+        "contract_address": "0x69dc96cdf87f6fc037a7c4dd2b2777cd90cc363c",
+        "contract_name": null,
+        "protocol_slug": "singularity",
+        "created_by": "system",
+        "created_at": "2022-11-28 06:52:57.270",
+        "updated_by": "eric",
+        "updated_at": "2022-11-28 06:52:57.270"
+      },
+      {
+        "chain": "BNB Chain",
+        "contract_address": "0x6d07c33ad397d73cbd3fe5349ef223ed36fe5b28",
+        "contract_name": "singularity",
+        "protocol_slug": "singularity",
+        "created_by": "system",
+        "created_at": "2022-11-28 06:52:57.270",
+        "updated_by": "eric",
+        "updated_at": "2022-11-28 06:52:57.270"
+      },
+      {
+        "chain": "BNB Chain",
+        "contract_address": "0x726fa3acba62db76423e3462bef0161f0a9deebf",
+        "contract_name": null,
+        "protocol_slug": "singularity",
+        "created_by": "system",
+        "created_at": "2022-11-28 06:52:57.270",
+        "updated_by": "eric",
+        "updated_at": "2022-11-28 06:52:57.270"
+      },
+      {
+        "chain": "BNB Chain",
+        "contract_address": "0x83e93b36b04c3c5abd055abe0f64d816b3bbebba",
+        "contract_name": "singularity",
+        "protocol_slug": "singularity",
+        "created_by": "system",
+        "created_at": "2022-11-28 06:52:57.270",
+        "updated_by": "eric",
+        "updated_at": "2022-11-28 06:52:57.270"
+      },
+      {
+        "chain": "BNB Chain",
+        "contract_address": "0x947b84242808168d8c70d641bf978b5f61110662",
+        "contract_name": null,
+        "protocol_slug": "singularity",
+        "created_by": "system",
+        "created_at": "2022-11-28 06:52:57.270",
+        "updated_by": "eric",
+        "updated_at": "2022-11-28 06:52:57.270"
+      },
+      {
+        "chain": "BNB Chain",
+        "contract_address": "0xab885d7527dcfd725a99f742cf3cf52aab0623dd",
+        "contract_name": null,
+        "protocol_slug": "singularity",
+        "created_by": "system",
+        "created_at": "2022-11-28 06:52:57.270",
+        "updated_by": "eric",
+        "updated_at": "2022-11-28 06:52:57.270"
+      }
+    ]
+  }
