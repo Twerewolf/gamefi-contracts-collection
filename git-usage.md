@@ -1,5 +1,6 @@
 ``` bash
 git add .
 git commit -m 'message'
-git push origin main
+git push origin main  
+或者 git push -u origin main
 ```
